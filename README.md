@@ -3,4 +3,4 @@ React-based E-commerce application. Concepts learnt so far:
   - Lifecycle Methods in Class Components 
   - Hooks
   - React Router v6
-  - Authentication with Firebase
+  - Authentication and storage with Firebase
