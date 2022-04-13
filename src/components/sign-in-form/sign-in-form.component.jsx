@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
 	signInWithGooglePopup,
-	createAuthUserWithEmailandPassword,
 	createUserDocumentFromAuth,
 	signInAuthUserWithEmailandPassword
 } from '../../utils/firebase/firebase.utils';
 import Button from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
 import './sign-in-form.styles.scss';
+
+//gives whatever value is passed in
+import { UserContext } from '../../contexts/user.context';
 
 const defaultformFields = {
 	displayName: '',
@@ -22,6 +24,9 @@ const SignInForm = () => {
 	const [formFields, setFormFields] = useState(defaultformFields);
 	const { email, password } = formFields;
 
+	//here we want the setter, we don't care about the value
+	const { setCurrentUser } = useContext(UserContext);
+
 	const resetFormFields = () => {
 		setFormFields(defaultformFields);
 	};
@@ -30,11 +35,12 @@ const SignInForm = () => {
 		event.preventDefault();
 
 		try {
-			const response = await signInAuthUserWithEmailandPassword(
+			const { user } = await signInAuthUserWithEmailandPassword(
 				email,
 				password
 			);
-			console.log(response);
+
+			setCurrentUser(user);
 			resetFormFields();
 		} catch (error) {
 			switch (error.code) {
@@ -53,6 +59,7 @@ const SignInForm = () => {
 
 	const signInWithGoogle = async () => {
 		const { user } = await signInWithGooglePopup();
+		setCurrentUser(user);
 		await createUserDocumentFromAuth(user);
 	};
 
