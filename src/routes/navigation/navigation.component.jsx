@@ -8,12 +8,7 @@ import { signOutUser } from '../../utils/firebase/firebase.utils';
 const Navigation = () => {
 	//here we want the value, we don't care about the setter
 	//whenever a value inside this updates, re-render
-	const { currentUser, setCurrentUser } = useContext(UserContext);
-
-	const signOutHandler = async () => {
-		const res = await signOutUser();
-		setCurrentUser(null);
-	};
+	const { currentUser } = useContext(UserContext);
 
 	return (
 		<Fragment>
@@ -27,7 +22,7 @@ const Navigation = () => {
 					</Link>
 
 					{currentUser ? (
-						<span className='nav-link' onClick={signOutHandler}>
+						<span className='nav-link' onClick={signOutUser}>
 							SIGN OUT
 						</span>
 					) : (
