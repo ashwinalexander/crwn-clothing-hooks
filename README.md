@@ -8,3 +8,4 @@ React-based E-commerce application. Concepts learnt thus far:
 - State Management with React Context
 - Database Storage with Firebase
 - Styled Components
+- Currently deployed on Netlify - https://animated-jelly-4834a6.netlify.app
